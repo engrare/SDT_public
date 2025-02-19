@@ -1,310 +1,111 @@
-<!-- Copyright 2023-2024 Kaya Sertel. All Rights Reserved.  -->
-<!DOCTYPE html>
-<html  lang="tr" dir="ltr" data-cast-api-enabled="true">
-<head>
-<title>ENGRARE-AGV</title>
-<link rel="icon" href="https://www.engrare.com/files/photos/engrare_logo.png" type="image/gif" sizes="48x48">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0, minimum-scale=1">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://www.engrare.com/files/photos/title_icon.png" />
-<meta property="og:image:width" content="100" />
-<meta property="og:image:height" content="100" />
-<meta property="twitter:image" content="https://www.engrare.com/files/photos/title_icon.png"  />
-<meta property="og:title" content="Team Engrare WebSitesi">
-<meta property="og:url" content="https://www.engrare.com">
-<meta property="og:description" content="engrare takımının websitesine hoş geldiniz.">
-<meta content="engrare takımının websitesine hoş geldiniz." name="description">
-<noscript>
-<style>
-.main_noscript_div {
-	height:	300px;
-	width: 450px;
-	position: fixed;
-	z-index: 20;
-	top: 50%;
-	left: 50%;
-	margin-left: -227px;
-	margin-top: -152px;
-	background-color: grey;
-	color: white;
-	font-family: Atkinson Hyperlegible, sans-serif;
-	border-radius: 10px;
-	border: solid 4px white;
-}
-.noscript_text {
-	font-size: 25px;
-	text-align: center;
-	margin: 30px 40px;
-}
-.noscript_header {
-	text-align: center;
-	margin: 20px;
-}
-.noscript_button {
-	font-size: 20px;
-	position: fixed;
-	width: 150px;
-	height: 80px;
-	text-align: center;
-	margin-left: 50%;
-	left: -75px;
-	font-family: Atkinson Hyperlegible, sans-serif;
-	box-shadow: 4px 4px black;
-	cursor: pointer;
-	border: solid 2px black;
-}
-.noscript_button:hover {
-	box-shadow: 2px 2px black;
-	background-color: blue;
-	color: white;
-}
-.cover_page {
-	background-color: black;
-	opacity: 0.9;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	z-index: 19;
-}
- </style>
-<div class="main_noscript_div">
-<h1 class="noscript_header">JavaScript Error</h1>
-<h3 class="noscript_text">It looks like JavaScript closed or not supported in your browser</h3>
-<form target="_blank" action="https://support.google.com/adsense/answer/12654?hl=en"><button class="noscript_button">click for help!</button></form>
-</div>
-<div class="cover_page"></div>
-</noscript>
-<link href='https://fonts.googleapis.com/css?family=Atkinson Hyperlegible|Bebas Neue|Montserrat' rel='stylesheet'>
-<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
-<!-- Add the Swiper library -->
+var logincookiename = "logincookie";
+var logininfo;
+var is_cookie_red = false;
 
-<!-- Add the Swiper styles -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
-	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-solid.css">
-	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-light.css">
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
-  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyBiWySgji6BIrn3d8noZ1c5NXYdq8C7ogU",
-    authDomain: "sample-firebase-ai-app-14b1c.firebaseapp.com",
-    databaseURL: "https://sample-firebase-ai-app-14b1c-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "sample-firebase-ai-app-14b1c",
-    storageBucket: "sample-firebase-ai-app-14b1c.firebasestorage.app",
-    messagingSenderId: "136159458580",
-    appId: "1:136159458580:web:20fee11d32eb7c8e93be01"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const database = getDatabase(app);
-
-  // DOM Elements
-  const loginForm = document.getElementById('login-form');
-  const usernameInput = document.getElementById('username');
-  const passwordInput = document.getElementById('password');
-
-  // Handle login form submission
-window.logintofirebase = function logintofirebase(username, password) {
-	var logindata = {
-		"username": "",
-		"passwordd": ""
-	};
+fetch('https://raw.githubusercontent.com/eylulberil/encoded_key/main/keys.json')
+  .then(response => response.json())
+  .then(myObj => {
+	encrypted_key = myObj[0];
+	console.log(encrypted_key);
 	
-	if(typeof username === 'undefined') {
-		logindata.username = usernameInput.value;
-		logindata.password = passwordInput.value;
-	} else {
-		logindata.username = username;
-		logindata.password = password;
+  })
+  .catch(error => {
+    // Handle any errors that occur during the fetch request
+    console.log('Error:', error);
+  });
+
+$( document ).ready(function() {
+	if(is_cookie_red == false) {
+		logininfo = readCookie(logincookiename);
+		is_cookie_red = true;
+	}
+	
+	if(logininfo != "") {
+		const parts = logininfo.split(/\|/); // | karakterini kullanarak ayır
+		console.log(parts);
+
+		logintofirebase(parts[0], parts[1]);
 	}
 
-    // Sign in with email and password
-    signInWithEmailAndPassword(auth, logindata.username, logindata.password)
-      .then((userCredential) => {
-        // Signed in successfully
-        const user = userCredential.user;
-        console.log('Giriş başarılı:', user);
+  
+});
 
-        // Fetch secret data from Realtime Database
-        const secretDataRef = ref(database, 'github-api');
-        get(secretDataRef)
-          .then((snapshot) => {
-            if (snapshot.exists()) {
+var ismenuopen = false;
+	var is_mobile_phone = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) ? true : false;
+	function goMainPage() {
+		var url = window.location.href;
+		var result = url.indexOf(".com") + 4;
+		window.open(url.slice(0, result), '_self');
+		
+	}
+	
+	function openLeftMenu() {
+	$(".fixed_menu_all_buttons_cont").stop();
+	$(".menu_closer").stop();
+	$('.fixed_menu_all_buttons_cont').animate(
+		{ left: ismenuopen ? -200 : 0 }, 200);
+	if(ismenuopen) {
+		$(".menu_closer").fadeOut(200);
+		$(".menu_opener").addClass('fa-bars');
+		$(".menu_opener").addClass('fa');
+		
+		$(".menu_opener").removeClass('fa-regular');
+		$(".menu_opener").removeClass('fa-solid');
+		$(".menu_opener").removeClass('fa-xmark');
+		
+		$("html body").css("overflow-y", "auto");
+		if(!is_mobile_phone) {
+			$(".main_div").css("width", "100%");
+			$(".fixed_menu_right_cont").css("width", parseInt($( ".fixed_menu_right_cont" ).width()) - 14);
+		}
+		//console.log(is_mobile_phone);
+	}
+	else {
+		$(".menu_closer").fadeIn(200);
+		$(".menu_opener").removeClass('fa-bars');
+		$(".menu_opener").removeClass('fa');
+		
+		$(".menu_opener").addClass('fa-regular');
+		$(".menu_opener").addClass('fa-solid');
+		$(".menu_opener").addClass('fa-xmark');
+		
+		$("html body").css("overflow-y", "hidden");
+		if(!is_mobile_phone) {
+			$(".main_div").css("width", "calc(100% - 14px)");
+			$(".fixed_menu_right_cont").css("width", parseInt($( ".fixed_menu_right_cont" ).width()) + 14.5);
+		}
+	}
+	//fa-regular fa-solid fa-xmark
 
-				setCookie(logincookiename, logindata.username + "|" + logindata.password, 30);
-              const secretData = snapshot.val();
-			  replaceHtmlWithUpdatedContent(secretData);
-              console.log('Gizli veri:', secretData);
-            } else {
-              console.log('Veri bulunamadı.');
-            }
-          })
-          .catch((error) => {
-            console.error('Veri alma hatası:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Giriş hatası:', error);
-        alert('Giriş başarısız: ' + error.message);
-      });
-  }
-const repoOwner = 'engrare';
-const repoName = 'SDTroboWeb';
-const htmlfilePath = 'index.html';
-const cssfilePath = 'files/myStyle.css';
-const jsfilePath = 'files/myScript.js';
+	ismenuopen = !ismenuopen;
 
-function decodeBase64(base64) {
-    const binaryString = atob(base64);
-    const bytes = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-    }
-    return new TextDecoder('utf-8').decode(bytes);
+	//overflow: hidden;
 }
 
-async function fetchFile(filePath, github_api) {
-    try {
-        const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
-            headers: { Authorization: `Bearer ${github_api}` },
-        });
-        if (!response.ok) throw new Error(`GitHub API hatası: ${response.statusText}`);
-        const data = await response.json();
-        return decodeBase64(data.content);
-    } catch (error) {
-        console.error(`Hata (${filePath}):`, error);
-        return null;
-    }
+
+function deleteCookie(cookieName) {
+    document.cookie = cookieName + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-async function replaceHtmlWithUpdatedContent(github_api) {
-    document.body.innerHTML = '<p style="text-align:center; font-size:18px; font-weight:bold;">İçerik yükleniyor...</p>';
-
-    try {
-        const [htmlContent, cssContent, jsContent] = await Promise.all([
-            fetchFile(htmlfilePath, github_api),
-            fetchFile(cssfilePath, github_api),
-            fetchFile(jsfilePath, github_api),
-        ]);
-
-        if (!htmlContent || !cssContent || !jsContent) {
-            throw new Error('Dosyalardan biri yüklenemedi.');
+function readCookie(cookieName) {
+    var name = cookieName + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
         }
-
-        const updatedHtmlContent = htmlContent.replace(
-            '</head>',
-            `<style>${cssContent}<\/style>\n<script>${jsContent}<\/script>\n<\/head>`
-        );
-		console.log(updatedHtmlContent);
-        //document.open();
-        //document.write(updatedHtmlContent);
-        //document.close();
-
-        console.log('HTML güncellendi ve CSS/JS eklendi.');
-    } catch (error) {
-        console.error('Bir hata oluştu:', error);
-
-        document.body.innerHTML = `
-            <p style="text-align:center; color:red; font-size:18px; font-weight:bold;">
-                Bir hata oluştu: ${error.message}
-            <\/p>
-        `;
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
+    return "";
 }
 
-
-
-    </script>
-<script src="files/myScript.js"></script>
-<link rel="stylesheet" href="files/myStyle.css">
-
-
-</head>
-
-<body>
-
-<!--<div class="fixed_menu_top"></div>-->
-<div class="menu_closer" onclick="openLeftMenu()"></div>
-
-<div class="fixed_menu_top noselect">
-	<div class="fixed_menu_cont">
-		<div class="fixed_menu_left_cont">
-			<div class="fixed_menu_button bar_button" onclick="openLeftMenu()">
-				<i class="fa fa-bars menu_opener"></i>
-			</div>
-			<div class="fixed_menu_all_buttons_cont">
-				<div class="fixed_menu_button fixed_menu_buttons_left" onclick="window.location.href = 'https://engrare.com';">
-					<p>Websitesine Git</p>
-				</div>
-				<div class="fixed_menu_button fixed_menu_buttons_left fixed_menu_button_selected" id="fixed_menu_but_2">
-					<p>Giriş Sayfası</p>
-				</div>
-			</div>
-			
-		</div>
-		<div class="fixed_menu_logo_part">
-			<img src="https://www.engrare.com/files/photos/engrare_logo.png" height="80%">
-			<div class="fixed_menu_logo_text_part">
-				<p class="fixed_menu_logo_text">Engrare</p>
-				<hr class="fixed_menu_logo_hr" />
-				<p class="fixed_menu_logo_text">Teknofest Team</p>
-			</div>
-		</div>
-		<div class="fixed_menu_right_cont" onClick="menuState(2)">
-			<div class="fixed_menu_button fixed_menu_button_3">
-			<!--<div class="notification_num">3</div>
-				<i class="fa fa-bell notification_bell"></i>-->
-				<div class="notification_num"><i class="fa-solid fa-gear settings_button_top"></i></div>
-			<i class="fa-solid fa-gear settings_button_top"></i> 
-			</div>
-		</div>
-			
-	</div>
-</div>
-	
-	
-
-<div class="main_div">
-
-		<div class="fixed_menu_space"></div>
-
-
-<div class="main_container">
-<div class="main_container_outer">
-	<div class="main_menu_content_outer">
-				<div class="main_container_inner_text">
-	 				 <h2>LOGIN</h2>
-				</div>
-				
-<label for="username">Kullanıcı Adı:</label>
-  <input type="email" id="username" placeholder="E-posta" required />
-  <br />
-  <label for="password">Şifre:</label>
-  <input type="password" id="password" placeholder="Şifre" required />
-  <br />
-  <button type="submit" style="cursor: pointer;" onClick="logintofirebase()">Giriş Yap</button>
-			</div>
-</div>
-</div>
-	<div class="copywrite_part">
-<p class="copywrite_text">Bu websitesinin tüm hakları Kaya Sertel ve <b>Engrare©®™</b> ekibine aittir. 3. kişilerin kullanımına kapalıdır.</p>
-</div>
-
-
-
-</div>
-
-
-</body>
-
-</html>
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
