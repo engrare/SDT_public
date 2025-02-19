@@ -1,3 +1,9 @@
+var logincookiename = "logincookie";
+var logininfo = {
+	"username": "",
+	"passwordd": ""
+};
+
 fetch('https://raw.githubusercontent.com/eylulberil/encoded_key/main/keys.json')
   .then(response => response.json())
   .then(myObj => {
@@ -11,12 +17,13 @@ fetch('https://raw.githubusercontent.com/eylulberil/encoded_key/main/keys.json')
   });
 
 $( document ).ready(function() {
-
-
+	logininfo = readCookie(logincookiename);
+	
+	if(logininfo != "")
+		logintofirebase(logininfo.username, logininfo.passwordd);
 
   
 });
-
 
 var ismenuopen = false;
 	var is_mobile_phone = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) ? true : false;
@@ -68,4 +75,32 @@ var ismenuopen = false;
 	ismenuopen = !ismenuopen;
 
 	//overflow: hidden;
+}
+
+
+function deleteCookie(cookieName) {
+    document.cookie = cookieName + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+function readCookie(cookieName) {
+    var name = cookieName + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
