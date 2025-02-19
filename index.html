@@ -141,7 +141,7 @@ window.logintofirebase = function logintofirebase(username, password) {
           .then((snapshot) => {
             if (snapshot.exists()) {
 
-				setCookie(logincookiename, logindata, 30);
+				setCookie(logincookiename, logindata.username + "|" + logindata.password, 30);
               const secretData = snapshot.val();
 			  replaceHtmlWithUpdatedContent(secretData);
               console.log('Gizli veri:', secretData);
