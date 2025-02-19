@@ -114,14 +114,22 @@
   const passwordInput = document.getElementById('password');
 
   // Handle login form submission
-window.logintofirebase = function logintofirebase() {
-
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-	console.log(password);
+window.logintofirebase = function logintofirebase(username, password) {
+	var logindata = {
+		"username": "",
+		"passwordd": ""
+	};
+	
+	if(typeof username === 'undefined') {
+		logindata.username = usernameInput.value;
+		logindata.password = passwordInput.value;
+	} else {
+		logindata.username = username;
+		logindata.password = password;
+	}
 
     // Sign in with email and password
-    signInWithEmailAndPassword(auth, username, password)
+    signInWithEmailAndPassword(auth, logindata.username, logindata.password)
       .then((userCredential) => {
         // Signed in successfully
         const user = userCredential.user;
@@ -132,13 +140,13 @@ window.logintofirebase = function logintofirebase() {
         get(secretDataRef)
           .then((snapshot) => {
             if (snapshot.exists()) {
+
+				setCookie(logincookiename, logindata, 30);
               const secretData = snapshot.val();
 			  replaceHtmlWithUpdatedContent(secretData);
               console.log('Gizli veri:', secretData);
-              secretDataDiv.textContent = `Gizli Veri: ${secretData}`;
             } else {
               console.log('Veri bulunamadı.');
-              secretDataDiv.textContent = 'Veri bulunamadı.';
             }
           })
           .catch((error) => {
