@@ -1,5 +1,6 @@
 var logincookiename = "logincookie";
 var logininfo;
+var is_cookie_red = false;
 
 fetch('https://raw.githubusercontent.com/eylulberil/encoded_key/main/keys.json')
   .then(response => response.json())
@@ -14,7 +15,10 @@ fetch('https://raw.githubusercontent.com/eylulberil/encoded_key/main/keys.json')
   });
 
 $( document ).ready(function() {
-	logininfo = readCookie(logincookiename);
+	if(is_cookie_red == false) {
+		logininfo = readCookie(logincookiename);
+		is_cookie_red = true;
+	}
 	
 	if(logininfo != "") {
 		const parts = logininfo.split(/\|/); // | karakterini kullanarak ayır
