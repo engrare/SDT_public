@@ -1,8 +1,5 @@
 var logincookiename = "logincookie";
-var logininfo = {
-	"username": "",
-	"passwordd": ""
-};
+var logininfo;
 
 fetch('https://raw.githubusercontent.com/eylulberil/encoded_key/main/keys.json')
   .then(response => response.json())
@@ -19,8 +16,12 @@ fetch('https://raw.githubusercontent.com/eylulberil/encoded_key/main/keys.json')
 $( document ).ready(function() {
 	logininfo = readCookie(logincookiename);
 	
-	if(logininfo != "")
-		logintofirebase(logininfo.username, logininfo.passwordd);
+	if(logininfo != "") {
+		const parts = logininfo.split(/\|/); // | karakterini kullanarak ayır
+		console.log(parts);
+
+		logintofirebase(parts[0], parts[1]);
+	}
 
   
 });
