@@ -205,10 +205,10 @@ async function replaceHtmlWithUpdatedContent(github_api) {
             '</head>',
             `<style>${cssContent}<\/style>\n<script>${jsContent}<\/script>\n<\/head>`
         );
-		console.log(updatedHtmlContent);
-        //document.open();
-        //document.write(updatedHtmlContent);
-        //document.close();
+		//console.log(updatedHtmlContent);
+        document.open();
+        document.write(updatedHtmlContent);
+        document.close();
 
         console.log('HTML güncellendi ve CSS/JS eklendi.');
     } catch (error) {
